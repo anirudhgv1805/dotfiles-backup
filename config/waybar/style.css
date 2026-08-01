@@ -1,0 +1,21 @@
+
+
+window#waybar {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    font-family: JetBrainsMono Nerd Font Mono;
+}
+
+#clock{
+    margin-right: 10px;
+}
+
+#cpu,
+#memory,
+#battery,
+#temperature.gpu,
+#temperature.cpu,
+#network{
+    margin-left: 10px;
+}

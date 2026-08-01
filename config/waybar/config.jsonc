@@ -1,0 +1,132 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mode": "dock",
+    "exclusive": false,
+    "clickthrough": true,
+    "gtk-shell-layer": true,
+    // "ipc": true,
+    "modules-right": [
+        // "backlight/slider",
+        "network",
+        "temperature#cpu",
+        "temperature#gpu",
+        "cpu",
+        "memory",
+        "battery"
+    ],
+    "modules-left": [
+        "clock",
+        "custom/spotify"
+    ],
+    "modules-center": [
+        "hyprland/workspaces",
+    ],
+    // Module configs
+    "cpu": {
+        "interval": 2,
+        "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15} {avg_frequency} GHz",
+        "format-icons": [
+            "▁",
+            "▂",
+            "▃",
+            "▄",
+            "▅",
+            "▆",
+            "▇",
+            "█"
+        ],
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "hyprland/workspaces": {
+        "format": "{id}"
+    },
+    "backlight/slider": {
+        "min": 1,
+        "max": 100,
+        "device": "intel_backlight",
+        "orientation": "vertical"
+    },
+    "custom/spotify": {
+        "format": "{text}",
+        "escape": true,
+        "return-type": "json",
+        "max-length": 25,
+        // "interval": 30, // Remove this if script is endless and write in loop
+        "on-click": "playerctl -p spotify play-pause",
+        "on-click-right": "killall spotify",
+        "smooth-scrolling-threshold": 10, // Modified for touchpad 
+        "on-scroll-up": "playerctl -p spotify next",
+        "on-scroll-down": "playerctl -p spotify previous",
+        "on-scroll-right": "playerctl -p spotify position 5-",
+        "on-scroll-left": "playerctl -p spotify position 5+",
+        "exec": "~/.config/waybar/scripts/mediaplayer.py --player spotify --enable-logging",
+        "exec-if": "pgrep spotify",
+        "marquee": true,
+        // "marquee-interval": 500,
+        // "marquee-speed": 40
+    },
+    "battery": {
+        "bat": "BAT0",
+        "format": "{capacity}%{icon}",
+        "full-at-plugged": true,
+        "format-icons": {
+            "default": [
+                "󰂎",
+                "󰁺",
+                "󰁻",
+                "󰁼",
+                "󰁽",
+                "󰁾",
+                "󰁿",
+                "󰂀",
+                "󰂁",
+                "󰂂",
+                "󰁹"
+            ],
+            "charging": [
+                "󰢟",
+                "󰢜",
+                "󰂆",
+                "󰂇",
+                "󰂈",
+                "󰢝",
+                "󰂉",
+                "󰢞",
+                "󰂊",
+                "󰂋",
+                "󰂅"
+            ]
+        },
+        "events": {
+            "on-charging": "notify-send -u normal 'Power Switch' Charging",
+            "on-discharging": "notify-send -u normal 'Power Switch' Discharging",
+            // "on-charging": "notify-send -u normal 'Charger Plugged'",
+            // "on-discharging": "notify-send -u normal 'Charger Unplugged'"
+        }
+    },
+    "temperature#cpu": {
+        "hwmon-by-name": "alienware_wmi",
+        "input-filename": "temp1_input",
+        "tooltip-format": "CPU Temp {} C"
+    },
+    "temperature#gpu": {
+        "hwmon-by-name": "alienware_wmi",
+        "input-filename": "temp2_input",
+        "tooltip-format": "GPU Temp {} C"
+    },
+    "network": {
+        "interface": "wlan0",
+        "interval": 30,
+        "format": " {essid}",
+        "tooltip-format": "{ifname} IP:{ipaddr}",
+        "on-click": "networkmanager_dmenu"
+    },
+    "clock": {
+        "tooltip": true,
+        "format": "{:%A %H:%M}",
+        "tooltip-format": "{:%d-%m-%Y}"
+    }
+}
