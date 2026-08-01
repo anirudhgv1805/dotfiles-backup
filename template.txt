@@ -1,0 +1,67 @@
+If you're using the latest Lua-based Hyprland config, the best practice is to split it into small modules instead of putting everything in one hyprland.lua.
+
+A common structure is:
+
+~/.config/hypr/
+├── hyprland.lua
+├── config/
+│   ├── variables.lua
+│   ├── monitors.lua
+│   ├── binds.lua
+│   ├── input.lua
+│   ├── decoration.lua
+│   ├── animations.lua
+│   ├── general.lua
+│   ├── rules.lua
+│   ├── autostart.luac
+│   └── misc.lua
+└── scripts/
+    └── ...
+
+Then hyprland.lua becomes your entry point:
+
+require("config.variables")
+require("config.monitors")
+require("config.general")
+require("config.input")
+require("config.decoration")
+require("config.animations")
+require("config.rules")
+require("config.binds")
+require("config.autostart")
+require("config.misc")
+
+A typical responsibility split is:
+
+variables.lua – modifier keys, app names, colors, reusable constants.
+monitors.lua – monitor layout, resolution, scale, workspaces assigned to monitors.
+general.lua – gaps, borders, layouts, focus behavior.
+input.lua – keyboard, mouse, touchpad, repeat rate.
+decoration.lua – rounding, blur, shadows, opacity.
+animations.lua – animation settings and curves.
+rules.lua – window rules, workspace rules, floating rules.
+binds.lua – all keybindings, mouse bindings, submaps.
+autostart.lua – programs started when Hyprland launches.
+misc.lua – anything that doesn't fit elsewhere.
+
+For example, variables.lua might look like:
+
+local M = {}
+
+M.mainMod = "SUPER"
+M.terminal = "ghostty"
+M.browser = "zen-browser"
+M.fileManager = "thunar"
+
+return M
+
+And binds.lua:
+
+local cfg = require("config.variables")
+
+hl.bind(cfg.mainMod .. " + T", hl.dsp.exec_cmd(cfg.terminal))
+hl.bind(cfg.mainMod .. " + B", hl.dsp.exec_cmd(cfg.browser))
+
+This way you only define things like your terminal or modifier key once.
+
+As your configuration grows (100+ binds, custom scripts, multiple monitors), this modular layout is much easier to maintain than a single large file. It's also close to how many experienced Hyprland users organize their configs, making it easier to borrow ideas from public dotfiles.
