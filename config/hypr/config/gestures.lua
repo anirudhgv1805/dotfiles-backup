@@ -27,7 +27,7 @@ hl.bind("XF86MonBrightnessUp", hl.dsp.exec_raw("brightnessctl set 10000+ -n 1"),
 hl.bind("XF86AudioPlay", hl.dsp.exec_raw("playerctl play-pause"))
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_raw("wpctl set-volume -l 0.9 @DEFAULT_AUDIO_SINK@ 5%+"),
     { repeating = true, locked = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_raw("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_raw("wpctl set-volume  @DEFAULT_AUDIO_SINK@ 5%-"),
     { repeating = true, locked = true })
 hl.bind("XF86AudioMute", hl.dsp.exec_raw("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
     { repeating = true, locked = true })
@@ -48,11 +48,15 @@ hl.bind(
 hl.bind(vars.mainMod .. "+" .. vars.secondMod .. "+" .. "v",hl.dsp.exec_cmd("cliphist wipe"))
 
 
+hl.bind(
+    vars.mainMod .. "+F",
+    hl.dsp.window.fullscreen({
+        mode = "maximized",
+        action = "toggle"
+    })
+)
 
 -- Touchpad Gestures
-
-
-
 
 hl.gesture({
     fingers = 3,
@@ -60,70 +64,54 @@ hl.gesture({
     action = "workspace"
 })
 
+
+
+local volume_gesture = function(change) hl.exec_cmd("wpctl set-volume -l 0.9 @DEFAULT_AUDIO_SINK@ " .. math.abs(change) .. "%" .. (change<0 and "-" or "+")) end
 hl.gesture({
-    fingers = 3,
-    direction = "left",
-    mods = vars.mainMod,
-    action = function()
-        hl.dispatch(
-            hl.dsp.window.move({
-                workspace = "m-1",
-                follow = true
-            })
-        )
-    end
+  fingers = 3,
+  direction = "vertical",
+  action = {
+    start = function(e) volume_gesture(-0.25 * e.delta.y) end,
+    update = function(e) volume_gesture(-0.25 * e.delta.y) end
+  },
 })
-
-hl.gesture({
-    fingers = 3,
-    direction = "right",
-    mods = vars.mainMod,
-    action = function()
-        hl.dispatch(
-            hl.dsp.window.move({
-                workspace = "m+1",
-                follow = true
-            })
-        )
-    end
-})
-
-
--- hl.gesture({
---     fingers=4,
---     direction="down",
---     action=function ()
---         hl.dispatch(
---             hl.dsp.window.
---         )
---     end
--- })
-
-
--- hl.gesture({
---   fingers = 2,
---   direction = "pinch",
---   action = {
---     start = function(e) hl.notification.create({ text = "start: type=" .. e.type .. " time_ms=" .. e.time_ms .. " fingers=" .. e.fingers .. " delta=(" .. e.delta.x .. ", " .. e.delta.y .. ") scale=" .. e.scale .. " rotation=" .. e.rotation, timeout = 1000, icon = 1}) end,
---     update = function(e) hl.notification.create({ text = "update: type=" .. e.type .. " time_ms=" .. e.time_ms .. " fingers=" .. e.fingers .. " delta=(" .. e.delta.x .. ", " .. e.delta.y .. ") scale=" .. e.scale .. " rotation=" .. e.rotation, timeout = 1000, icon = 1}) end,
---     finish = function(e) hl.notification.create({ text = "finish: type=" .. e.type .. " time_ms=" .. e.time_ms .. " cancelled=" .. tostring(e.cancelled), timeout = 1000, icon = 1}) end
---   }
--- })
-
-
--- local volume_gesture = function(change) hl.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ " .. math.abs(change) .. "%" .. (change<0 and "-" or "+")) end
--- hl.gesture({
---   fingers = 3,
---   direction = "vertical",
---   action = {
---     start = function(e) volume_gesture(-0.25 * e.delta.y) end,
---     update = function(e) volume_gesture(-0.25 * e.delta.y) end
---   },
--- })
 
 
 
 -- hl.gesture({ fingers = 2, direction = "pinch", action = "cursorZoom", zoom_level = 2 })
 -- hl.gesture({ fingers = 2, direction = "pinch", action = "cursorZoom", zoom_level = 1.2, mode = "mult" })
--- hl.gesture({ fingers = 2, direction = "pinch", action = "cursorZoom", zoom_level = 1, mode = "live" })
+hl.gesture({ fingers = 2, direction = "pinch", mods=vars.mainMod ,action = "cursorZoom", zoom_level = 1, mode = "live" })
 -- hl.gesture({})
+
+
+
+
+
+
+-- -- Plugins
+
+-- -- Hyprexpo
+hl.bind(vars.mainMod .. " + G", function()
+    hl.plugin.hyprexpo.expo("toggle")
+end)
+
+
+hl.gesture({
+    fingers=4,
+    direction="vertical",
+    action=function ()
+        hl.plugin.hyprexpo.expo("toggle")
+    end,
+
+})
+
+-- hl.gesture({
+--     fingers = 4,
+--     direction = "vertical",
+--     action = function()
+--         hl.notification.create({
+--             text = "4 finger gesture",
+--             timeout = 1000
+--         })
+--     end,
+-- })
