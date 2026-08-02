@@ -1,3 +1,7 @@
+---@diagnostic disable: assign-type-mismatch
+-- Reason :  Hyprland did not update the template for action attribute in the gesture in the latest version yet
+
+
 local vars = require("config.variables")
 
 
