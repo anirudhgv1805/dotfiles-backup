@@ -43,13 +43,14 @@ hl.bind("XF86AudioMute", hl.dsp.exec_raw("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 hl.bind(vars.mainMod .. " + T", hl.dsp.exec_cmd(vars.terminal))
 hl.bind(vars.mainMod .. "+ D", hl.dsp.exec_cmd(vars.menu))
 hl.bind(vars.mainMod .. "+" .. vars.secondMod .."+s",hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
-hl.bind(vars.mainMod .. "+" .. "period",hl.dsp.exec_cmd("wofi-emoji"))
+hl.bind(vars.mainMod .. "+" .. "period",hl.dsp.exec_raw("wofi-emoji --copy && wtype -M ctrl -k v -m ctrl"))
 
 hl.bind(
     vars.mainMod .. "+v",
     hl.dsp.exec_raw("cliphist list | wofi --dmenu | cliphist decode | wl-copy && wtype -M ctrl -k v -m ctrl")
 )
 hl.bind(vars.mainMod .. "+" .. vars.secondMod .. "+" .. "v",hl.dsp.exec_cmd("cliphist wipe"))
+
 
 
 hl.bind(
