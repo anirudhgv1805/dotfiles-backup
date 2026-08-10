@@ -19,3 +19,23 @@ window#waybar {
 #network{
     margin-left: 10px;
 }
+
+#clock,
+#custom.spotify{
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+
+#workspaces button.active {
+    color: #ffffff;
+    background: #2f3030;
+    font-weight: bold;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom: 2px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}

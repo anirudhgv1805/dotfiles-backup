@@ -6,20 +6,46 @@
     "clickthrough": true,
     "gtk-shell-layer": true,
     // "ipc": true,
-    "modules-right": [
-        // "backlight/slider",
-        "pulseaudio",
-        "network",
-        "temperature#cpu",
-        "temperature#gpu",
-        "cpu",
-        "memory",
-        "battery"
-    ],
+    
+    // For Left to right
+
+    // "modules-right": [
+    //     // "backlight/slider",
+    //     "pulseaudio",
+    //     "network",
+    //     "temperature#cpu",
+    //     "temperature#gpu",
+    //     "cpu",
+    //     "memory",
+    //     "battery"
+    // ],
+    // "modules-left": [
+    //     "clock",
+    //     "custom/spotify",
+    // ],
+
+
+
+
+
     "modules-left": [
-        "clock",
-        "custom/spotify",
+        // "backlight/slider",
+        
+        "network",
+        "pulseaudio",
+        "temperature#cpu",
+        "temperature#gpu",       
+        "memory",
+        "cpu",
+         "battery",
     ],
+    "modules-right": [
+        "custom/spotify",
+        "clock",
+    ],
+
+
+
     "modules-center": [
         "hyprland/workspaces",
     ],
@@ -43,8 +69,9 @@
     },
     "hyprland/workspaces": {
         "format": "{id}",
-        "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e+1\"})' ",
-        "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' ",
+        "on-scroll-left": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e+1\"})' ",
+        "on-scroll-right": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' ",
+        "tooltip":true,
     },
     "backlight/slider": {
         "device": "intel_backlight",
@@ -131,7 +158,7 @@
         "tooltip-format": "{:%d-%m-%Y}"
     },
     "pulseaudio": {
-        "format": "{volume}% {icon}",
+        "format": " {volume}% {icon}",
         "format-bluetooth": "{volume}% {icon}",
         "format-muted": "",
         "format-icons": {
