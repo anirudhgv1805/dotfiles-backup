@@ -5,7 +5,7 @@ hl.workspace_rule({workspace="1",layout="dwindle"})
 
 hl.config({
 	general = {
-		border_size = 2,
+		border_size = 0,
 		gaps_in = 2,
 		gaps_out = 4,
 		col = {
@@ -49,3 +49,5 @@ hl.config({
         enable_hyprcursor=true,
     }
 })
+
+hl.workspace_rule({default_name="spotify",workspace="7",})

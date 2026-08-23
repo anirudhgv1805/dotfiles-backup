@@ -4,6 +4,7 @@ require("config.autostart")
 require("config.gestures")
 require("config.workspace")
 require("config.dispatchers")
+require("config.windows")
 require("config.env")
 -- require("plugin-config.hyprexpo")
 

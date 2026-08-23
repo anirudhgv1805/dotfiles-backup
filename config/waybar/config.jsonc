@@ -154,7 +154,7 @@
     },
     "clock": {
         "tooltip": true,
-        "format": "{:%A %H:%M}",
+        "format": "| {:%A %H:%M}",
         "tooltip-format": "{:%d-%m-%Y}"
     },
     "pulseaudio": {

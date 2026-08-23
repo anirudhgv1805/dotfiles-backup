@@ -9,6 +9,6 @@ vars.terminal = "kitty"
 vars.browser = "chrome"
 vars.editor = "code"
 vars.fileManager = "dolphin"
-vars.menu = "hyprlauncher"
+vars.menu = "hyprlauncher -t -d"
 
 return vars

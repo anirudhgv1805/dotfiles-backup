@@ -29,6 +29,23 @@ local vars = require("config.variables")
 
 
 -- Keyboard Shortcuts
+
+-- Workspace movement
+hl.bind(vars.mainMod .. "+ 1", hl.dsp.focus({ workspace = "1" }))
+hl.bind(vars.mainMod .. "+ 2", hl.dsp.focus({ workspace = "2" }))
+hl.bind(vars.mainMod .. "+ 3", hl.dsp.focus({ workspace = "3" }))
+hl.bind(vars.mainMod .. "+ 4", hl.dsp.focus({ workspace = "4" }))
+hl.bind(vars.mainMod .. "+ 5", hl.dsp.focus({ workspace = "5" }))
+hl.bind(vars.mainMod .. "+ 6", hl.dsp.focus({ workspace = "6" }))
+hl.bind(vars.mainMod .. "+ 7", hl.dsp.focus({ workspace = "7" }))
+hl.bind(vars.mainMod .. "+ 8", hl.dsp.focus({ workspace = "8" }))
+hl.bind(vars.mainMod .. "+ 9", hl.dsp.focus({ workspace = "9" }))
+hl.bind(vars.mainMod .. "+ 0", hl.dsp.focus({ workspace = "10" }))
+
+hl.bind("XF86Calculator", hl.dsp.exec_cmd("galculator"))
+
+
+
 -- Fan Control
 hl.bind(
     "XF86PerformanceMode",
@@ -63,7 +80,7 @@ hl.bind("XF86AudioMute", hl.dsp.exec_raw("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 
 
 hl.bind(vars.mainMod .. " + T", hl.dsp.exec_cmd(vars.terminal))
-hl.bind(vars.mainMod .. "+ D", hl.dsp.exec_cmd(vars.menu))
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(vars.menu), { release = true,repeating=false })
 hl.bind(vars.mainMod .. "+" .. vars.secondMod .. "+s", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
 hl.bind(vars.mainMod .. "+" .. "period", hl.dsp.exec_raw("wofi-emoji --copy && wtype -M ctrl -k v -m ctrl"))
 
@@ -121,8 +138,10 @@ hl.gesture({
 
 
 
-local volume_gesture = function(change) hl.exec_cmd("wpctl set-volume -l 0.9 @DEFAULT_AUDIO_SINK@ " ..
-    math.abs(change) .. "%" .. (change < 0 and "-" or "+")) end
+local volume_gesture = function(change)
+    hl.exec_cmd("wpctl set-volume -l 0.9 @DEFAULT_AUDIO_SINK@ " ..
+        math.abs(change) .. "%" .. (change < 0 and "-" or "+"))
+end
 hl.gesture({
     fingers = 3,
     direction = "vertical",
